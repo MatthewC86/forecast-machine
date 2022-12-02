@@ -4,7 +4,9 @@ var currentDate = "";
 var tempF = "";
 var humidityValue = "";
 var windSpeed = "";
-var weatherCondition = "";
+var weatherConditionIcon = "";
+var weatherConditionIconUrl = "";
+
 
 $(document).ready(function(){
     
