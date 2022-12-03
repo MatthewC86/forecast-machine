@@ -24,3 +24,8 @@ function setup() {
         input = select('#searched-city');
 }
 
+//alter API to display searched city info
+function displayWeather() {
+    var url = api + input.value() + apiKey + units
+    loadJSON(url, gotData);
+}
