@@ -1,19 +1,18 @@
-var APIKey = "cf0b351b076cc017939d291aafeb2ff5"
 var city = "";
 
-var currentDate = (now.format("MM/DD/YYYY"));
-var citySearch = $("#search-input");
-var searchButton = $("#searched-city");
-var currentCondition = $("current-condition");
-var currentTemp = $("current-temp");
-var humidityValue = $("current-hum");
-var windSpeed = $("current-wind");
+//var currentDate = (now.format("MM/DD/YYYY"));
+var citySearch = document.getElementById("#search-input");
+var searchButton = document.getElementById("#searched-city");
+var currentCondition = document.getElementById("current-condition");
+var currentTemp = document.getElementById("current-temp");
+var humidityValue = document.getElementById("current-hum");
+var windSpeed = document.getElementById("current-wind");
 var weatherConditionIcon = "";
 var weatherConditionIconUrl = "";
 
-var url = 'https://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=cf0b351b076cc017939d291aafeb2ff5';
-var apiKey = '&APPID=cf0b351b076cc017939d291aafeb2ff5';
-var units = '&units=metric';
+
+var apiKey = 'cf0b351b076cc017939d291aafeb2ff5';
+var units = 'metric';
 var input;
 
 
@@ -26,9 +25,20 @@ function setup() {
 
         input = select('#searched-city');
 }
-
+displayWeather()
 //alter API to display searched city info
 function displayWeather() {
+    var url = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&APPID=" + apiKey + "&units=imperial";
+    navigator.geolocation.getCurrentPosition((success) => {
+
+        let {latitude, longitude } = success.coords;
+    
+        fetch('https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&exclude=current,minutely,hourly,alerts &lon={longitude}&&appid=${apiKey}').then(res => res.json()).then(data => {
+
+            console.log(data)
+        })
+    
+    })
     var url = api + input.value() + apiKey + units
     loadJSON(url, gotData);
 }
