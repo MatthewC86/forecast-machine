@@ -29,9 +29,9 @@ displayWeather()
 //alter API to display searched city info
 function displayWeather() {
     var url = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&APPID=" + apiKey + "&units=imperial";
-    navigator.geolocation.getCurrentPosition((success) => {
+    navigator.geolocation.getCurrentPosition((getPosition) => {
 
-        let {latitude, longitude } = success.coords;
+        let {latitude, longitude } = getPosition.coords;
     
         fetch('https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&exclude=current,minutely,hourly,alerts &lon={longitude}&&appid=${apiKey}').then(res => res.json()).then(data => {
 
