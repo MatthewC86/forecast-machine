@@ -1,12 +1,13 @@
 var APIKey = "cf0b351b076cc017939d291aafeb2ff5"
 var city = "";
-var now = dayjs();
+
 var currentDate = (now.format("MM/DD/YYYY"));
 var citySearch = $("#search-input");
 var searchButton = $("#searched-city");
-var temp = "";
-var humidityValue = "";
-var windSpeed = "";
+var currentCondition = $("current-condition");
+var currentTemp = $("current-temp");
+var humidityValue = $("current-hum");
+var windSpeed = $("current-wind");
 var weatherConditionIcon = "";
 var weatherConditionIconUrl = "";
 
@@ -14,6 +15,8 @@ var url = 'https://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=cf0
 var apiKey = '&APPID=cf0b351b076cc017939d291aafeb2ff5';
 var units = '&units=metric';
 var input;
+
+
 
 //this is beginning on load city info on button press
 
