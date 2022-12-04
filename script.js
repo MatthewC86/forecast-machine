@@ -33,12 +33,29 @@ function forecast(lat, long) {
         if (data.list[i].dt_txt.indexOf("15:00:00") > 0) {
             console.log(data.list[i]);
             var day = document.createElement("div")
-            day.classList.add("col-2")
+            day.classList.add("row-2")
+
+
             var temp = document.createElement("p")
-            temp.textContent = "temperature: " + data.list[i].main.temp
+            temp.textContent = "Temperature: " + data.list[i].main.temp
+            temp.textContent = "Temperature: " + data.list[i].main.temp
+            temp.textContent = "Temperature: " + data.list[i].main.temp
+            temp.textContent = "Temperature: " + data.list[i].main.temp
+
+            var wind = document.createElement("p")
+            wind.textContent = "Wind: " + data.list[i].wind.speed
+            wind.textContent = "Wind: " + data.list[i].wind.speed
+            wind.textContent = "Wind: " + data.list[i].wind.speed
+            wind.textContent = "Wind: " + data.list[i].wind.speed
+
+            var hum = document.createElement("p")
+            hum.textContent = "Humidity: " + data.list[i].main.humidity
+            hum.textContent = "Humidity: " + data.list[i].main.humidity
+            hum.textContent = "Humidity: " + data.list[i].main.humidity
+            hum.textContent = "Humidity: " + data.list[i].main.humidity
 
 
-            day.append(temp)
+            day.append(temp, hum, wind)
             forecastEl.append(day)
 
         }
@@ -59,6 +76,7 @@ function displayWeather(city) {
         console.log(data);
         currentTemp.textContent = "Temperature: " + data.main.temp
         currentHumidity.textContent = "Humidity: " + data.main.humidity
+        windSpeed.textContent = "Wind Speed: " + data.wind.speed
         forecast(data.coord.lat, data.coord.lon)
     })
     
