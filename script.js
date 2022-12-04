@@ -1,6 +1,8 @@
 var city = "";
 
-//var currentDate = (now.format("MM/DD/YYYY"));
+var currentDay = $('#current-day');
+// $('#currentDay').text(dayjs().format('MMM DD, YYYY'));
+
 var citySearch = document.getElementById("search-input");
 var searchButton = document.getElementById("searched-city");
 var currentCondition = document.getElementById("current-condition");
@@ -15,6 +17,7 @@ var apiKey = 'cf0b351b076cc017939d291aafeb2ff5';
 var units = 'metric';
 var input;
 
+//this is beginning on load city info on button press
 searchButton.addEventListener("click", function(e) {
     var city = citySearch.value;
     displayWeather(city);
@@ -34,6 +37,12 @@ function forecast(lat, long) {
             console.log(data.list[i]);
             var day = document.createElement("div")
             day.classList.add("row-2")
+
+            var date = document.createElement("p")
+            date.textContent = "" + data.list[i].dt_txt
+            date.textContent = "" + data.list[i].dt_txt
+            date.textContent = "" + data.list[i].dt_txt
+            date.textContent = "" + data.list[i].dt_txt
 
 
             var temp = document.createElement("p")
@@ -55,14 +64,14 @@ function forecast(lat, long) {
             hum.textContent = "Humidity: " + data.list[i].main.humidity
 
 
-            day.append(temp, hum, wind)
+            day.append(temp, hum, wind, date)
             forecastEl.append(day)
 
         }
        } 
     })
 }
-//this is beginning on load city info on button press
+
 
 
 //alter API to display searched city info
