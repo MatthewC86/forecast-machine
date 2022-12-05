@@ -83,7 +83,7 @@ console.log(forecastEl)
             
             
             var weatherIcon = document.createElement("img");
-            var date = document.createElement("p");
+            var date = document.createElement("h3");
             var temp = document.createElement("p");
             var wind = document.createElement("p");
             var hum = document.createElement("p");
