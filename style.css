@@ -36,3 +36,7 @@ background-color: blueviolet;
 	
   border: black 1px solid;
 }
+
+#search-history p {
+  cursor: pointer;
+}

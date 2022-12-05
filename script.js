@@ -1,10 +1,12 @@
 var city = "";
 
-var currentDay = $('#current-day');
-// $('#currentDay').text(dayjs().format('MMM DD, YYYY'));
+var now = dayjs();
+var currentDate = (now.format("MM/DD/YYYY"));
 
 var citySearch = document.getElementById("search-input");
+var cityName = document.getElementById("city-name")
 var searchButton = document.getElementById("searched-city");
+var searchHistory = document.getElementById("search-history");
 var currentCondition = document.getElementById("current-condition");
 var currentTemp = document.getElementById("current-temp");
 var currentHumidity = document.getElementById("current-hum");
@@ -19,9 +21,45 @@ var input;
 
 //this is beginning on load city info on button press
 searchButton.addEventListener("click", function(e) {
-    var city = citySearch.value;
+    city = citySearch.value;
     displayWeather(city);
+    setCityHistory(city);
 })
+
+
+    function setCityHistory(city) {
+      let cities = []
+      let oldCities = localStorage.getItem("weather-app") 
+        if (oldCities == null) {
+            cities.push(city)
+            }
+        else {
+            oldCities = JSON.parse(oldCities)
+            oldCities.push(city)
+            cities = oldCities
+        }
+        localStorage.setItem("weather-app" ,JSON.stringify(cities))
+        showCityHistory()
+    }
+
+
+    function showCityHistory() {
+        let cities = localStorage.getItem("weather-app")
+            if (cities != null) {
+                cities = JSON.parse(cities)
+                cities = cities.reverse()
+            if (cities.length > 3) {
+                cities = cities.slice(0, 3)
+            }
+        let layOut = ""
+                cities.forEach(function(value){
+                    layOut+= `<p onclick = "displayWeather('${value}')">${value}</p>`
+                })
+             searchHistory.innerHTML = layOut   
+            }
+    }
+
+    showCityHistory()
 
 function forecast(lat, long) {
 
@@ -31,47 +69,54 @@ function forecast(lat, long) {
         return res.json();
     })
     .then(function(data) {
-        forecastEl.innerHtml = ""
+        forecastEl.innerHTML = ""
+
+console.log(forecastEl)
        for (var i = 0; i < data.list.length; i++) {
         if (data.list[i].dt_txt.indexOf("15:00:00") > 0) {
             console.log(data.list[i]);
-            var day = document.createElement("div")
-            day.classList.add("row-2")
+            var day = document.createElement("div");
+            
+            
+            day.classList.add("row")
 
-            var date = document.createElement("p")
-            date.textContent = "" + data.list[i].dt_txt
-            date.textContent = "" + data.list[i].dt_txt
-            date.textContent = "" + data.list[i].dt_txt
-            date.textContent = "" + data.list[i].dt_txt
+            // var weathericon = document.createElement("p")
+            // weathericon.textContent = "" + weather.icon;
+            
+            
+            var weatherIcon = document.createElement("img");
+            var date = document.createElement("p");
+            var temp = document.createElement("p");
+            var wind = document.createElement("p");
+            var hum = document.createElement("p");
 
+            // weatherIcon.src = `http://openweathermap.org/img/wn/${forecastEl[i].weather[0].icon}@2x.png`
+            // var weatherIcon = weather[0].icon;
+            // var iconurl = "https://openweathermap.org/img/wn/" + weatherIcon + "@2x.png";
 
-            var temp = document.createElement("p")
+            weatherIcon.src = "http://openweathermap.org/img/wn/" + data.list[i].weather[0].icon + ".png"
+            date.textContent = formatDate(data.list[i].dt_txt)
             temp.textContent = "Temperature: " + data.list[i].main.temp
-            temp.textContent = "Temperature: " + data.list[i].main.temp
-            temp.textContent = "Temperature: " + data.list[i].main.temp
-            temp.textContent = "Temperature: " + data.list[i].main.temp
-
-            var wind = document.createElement("p")
             wind.textContent = "Wind: " + data.list[i].wind.speed
-            wind.textContent = "Wind: " + data.list[i].wind.speed
-            wind.textContent = "Wind: " + data.list[i].wind.speed
-            wind.textContent = "Wind: " + data.list[i].wind.speed
-
-            var hum = document.createElement("p")
             hum.textContent = "Humidity: " + data.list[i].main.humidity
-            hum.textContent = "Humidity: " + data.list[i].main.humidity
-            hum.textContent = "Humidity: " + data.list[i].main.humidity
-            hum.textContent = "Humidity: " + data.list[i].main.humidity
-
-
-            day.append(temp, hum, wind, date)
-            forecastEl.append(day)
+            
+            day.append(date, weatherIcon, temp, hum, wind);
+            
+            forecastEl.append(day);
+            
 
         }
        } 
     })
 }
+            function formatDate(date) {
+                let chunks = date.split(" ")
+                let newDate = chunks[0]
+                let chunksTwo = newDate.split("-")
+                
+                return chunksTwo[1] + "/" + chunksTwo[2] + "/" + chunksTwo[0]
 
+            }
 
 
 //alter API to display searched city info
@@ -83,6 +128,8 @@ function displayWeather(city) {
     })
     .then(function(data) {
         console.log(data);
+        cityName.textContent = city
+        currentCondition.innerHTML = `<img src = "http://openweathermap.org/img/wn/${data.weather[0].icon}.png" />`
         currentTemp.textContent = "Temperature: " + data.main.temp
         currentHumidity.textContent = "Humidity: " + data.main.humidity
         windSpeed.textContent = "Wind Speed: " + data.wind.speed
