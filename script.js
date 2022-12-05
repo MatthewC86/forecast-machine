@@ -2,7 +2,7 @@ var city = "";
 
 var now = dayjs();
 var currentDate = (now.format("MM/DD/YYYY"));
-
+var todayDate = document.getElementById("today-date");
 var citySearch = document.getElementById("search-input");
 var cityName = document.getElementById("city-name")
 var searchButton = document.getElementById("searched-city");
@@ -78,10 +78,8 @@ console.log(forecastEl)
             var day = document.createElement("div");
             
             
+            
             day.classList.add("row")
-
-            // var weathericon = document.createElement("p")
-            // weathericon.textContent = "" + weather.icon;
             
             
             var weatherIcon = document.createElement("img");
@@ -90,15 +88,11 @@ console.log(forecastEl)
             var wind = document.createElement("p");
             var hum = document.createElement("p");
 
-            // weatherIcon.src = `http://openweathermap.org/img/wn/${forecastEl[i].weather[0].icon}@2x.png`
-            // var weatherIcon = weather[0].icon;
-            // var iconurl = "https://openweathermap.org/img/wn/" + weatherIcon + "@2x.png";
-
             weatherIcon.src = "http://openweathermap.org/img/wn/" + data.list[i].weather[0].icon + ".png"
             date.textContent = formatDate(data.list[i].dt_txt)
-            temp.textContent = "Temperature: " + data.list[i].main.temp
-            wind.textContent = "Wind: " + data.list[i].wind.speed
-            hum.textContent = "Humidity: " + data.list[i].main.humidity
+            temp.textContent = "Temperature: " + data.list[i].main.temp + " °F"
+            wind.textContent = "Wind: " + data.list[i].wind.speed + " MPH"
+            hum.textContent = "Humidity: " + data.list[i].main.humidity + " %"
             
             day.append(date, weatherIcon, temp, hum, wind);
             
@@ -110,11 +104,11 @@ console.log(forecastEl)
     })
 }
             function formatDate(date) {
-                let chunks = date.split(" ")
-                let newDate = chunks[0]
-                let chunksTwo = newDate.split("-")
+                let alterDate = date.split(" ")
+                let newDate = alterDate[0]
+                let finalDate = newDate.split("-")
                 
-                return chunksTwo[1] + "/" + chunksTwo[2] + "/" + chunksTwo[0]
+                return finalDate[1] + "/" + finalDate[2] + "/" + finalDate[0]
 
             }
 
@@ -128,11 +122,12 @@ function displayWeather(city) {
     })
     .then(function(data) {
         console.log(data);
+        // todayDate.innerHTML = finalDate
         cityName.textContent = city
         currentCondition.innerHTML = `<img src = "http://openweathermap.org/img/wn/${data.weather[0].icon}.png" />`
-        currentTemp.textContent = "Temperature: " + data.main.temp
-        currentHumidity.textContent = "Humidity: " + data.main.humidity
-        windSpeed.textContent = "Wind Speed: " + data.wind.speed
+        currentTemp.textContent = "Temperature: " + data.main.temp + " °F"
+        currentHumidity.textContent = "Humidity: " + data.main.humidity + " %"
+        windSpeed.textContent = "Wind Speed: " + data.wind.speed + " MPH"
         forecast(data.coord.lat, data.coord.lon)
     })
     

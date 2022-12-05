@@ -18,7 +18,7 @@
   <h1>Weather Dashboard</h1>
 
   <!-- Overall page container -->
-  <div class='container'>
+  
     
       <div class='search-container col-md-3'>
         
@@ -41,44 +41,48 @@
           </div>    
         </div>
       </div>
+    </div>
           
         
 
-      <div class='col-md-9'>
-        <div class='row'>
+      <div class='weather-container'>
+        
           <div class='card'>
-            <div class='weather-container'>
+            <!-- <div class='weather-container'> -->
 
-              <h5 class='card-title' id='city-name'>City:</h5>
+              <!-- <h5 class='card-title' id='city-name'></h5> -->
+              
               <ul>
 
-                <li class='card-text' id='current-condition'>Weather Condition:</li>
-                <li class='card-text' id='current-temp'>Temperature:</li>
-                <li class='card-text' id='current-hum'>Humidity:</li>
-                <li class='card-text' id='current-wind'>Windspeed:</li>
+                <ol class='card-text' id='city-name'></ol>
+                <ol class='card-text' id='today-date'></ol>
+                <ol class='card-text' id='current-condition'>Weather Condition:</ol>
+                <ol class='card-text' id='current-temp'>Temperature:</ol>
+                <ol class='card-text' id='current-hum'>Humidity:</ol>
+                <ol class='card-text' id='current-wind'>Windspeed:</ol>
 
               </ul>
             </div>
-          </div>
+          
         </div>
 
         <div class='row'>
+          <div class="col"></div>
 
-          <h5 class='card-title' id="weekHeader">5-Day Forcast</h5>
-        
-
-        <div class="row">
-          <div class="col">
-            <div class="container2">
-            </div>
-          
-            </div>
-          </div>
+          <h4 class='card-title' id="weekHeader">5-Day Forcast</h4>
         </div>
-              <div class='row row-cols-1 row-cols-sm-10 g-4 m-2' id='forecast'></div>
-            </div>
-         
+
+        <div class="col">
+          <div class="row">
+            
+          
+            
+          
         
+              <div class='row' id='forecast'>
+            
+              </div>
+        </div>
       
    
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"

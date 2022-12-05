@@ -19,24 +19,27 @@ h3 {
 
 
 
-.weatherContainer {
+.weather-container {
   border: black 20px solid;
+  
   
 }
 
-.forecast {
+/* #forecast {
 border: 1px solid black;
 padding: 10px;
-background-color: blueviolet;
-}
+
+} */
 
 
 
-.colTwo {
-	
-  border: black 1px solid;
-}
+
 
 #search-history p {
   cursor: pointer;
+}
+
+#forecast {
+  border: 1px solid black;
+  padding-left: 500px;
 }
